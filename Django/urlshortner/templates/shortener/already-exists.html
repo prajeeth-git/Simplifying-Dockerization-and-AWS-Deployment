@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+    <style>
+        .btn-outline-light{
+            font-weight: bold;
+        }
+    </style>
+</head>
+<header class="mb-auto">
+    <div>
+        <h2 class=" float-md-start mb-0 your-style" >SHORTLY</h2>
+        <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link fw-bold py-1 px-0 "  href="/">Home</a>
+        <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="#">Recent</a>
+        <a class="nav-link fw-bold py-1 px-0" href="#">Contact</a>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="text-center ">
+            <main class="px-3">
+                <h2 style="font-family: 'Kalam', cursive;">URL entered already exists</h2>
+                <h1 class="your-style"><img data-v-57d49d66="" src="{% static '/images/url.svg' %}" alt="">
+                    Your Long URL</h1>
+                    <br>
+
+                <div class="col-sm-offset-4">
+                    <form method="POST" action="." class="form-control">{% csrf_token %}
+                        <input type="text" class="form-control" value="{{object.url}}">
+                    </form>
+                </div>
+                <br>
+
+                <h1 class="your-style"><img data-v-57d49d66="" src="{% static '/images/magic-wand.svg' %}" alt="">
+                    Short URL</h1>
+                    <br>
+
+                <div class="col-sm-offset-4">
+                    <div class="input-group">
+                        <input id ="clipboard" type="text" class="form-control" value="{{object.get_short_url}}">
+                        <button class="btn btn-outline-light" type="button" onclick="copyText()" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Copy to Clipboard">
+                            <i class="bi bi-clipboard"></i>
+                            Copy
+                        </button>
+ 
+                    </div>
+                </div>
+                <br>
+                <p class="lead">By clicking SHORTEN, you are agreeing to Shortly's Terms of Service, Privacy Policy, and Acceptable Use Policy
+                </p>
+    
+            </main>
+        </div>
+    </div>
+</div>
+
+<script>
+    function copyText() {
+        var inputField = document.getElementById("clipboard");
+        inputField.select();
+        document.execCommand("copy");
+        var tooltip = document.querySelector('[data-bs-toggle="tooltip"]');
+        tooltip.setAttribute('data-bs-original-title', 'Copied!');
+        tooltip.setAttribute('title', 'Copied!');
+        tooltip.tooltip();
+    }
+</script>
+
+{% endblock content %}
